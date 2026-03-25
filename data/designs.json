@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "title": "Turquoise Linen Sundress",
+    "description": "A flowing sundress crafted from lightweight linen, perfect for Bermuda's warm climate. Features hand-stitched details and a flattering A-line silhouette.",
+    "category": "Dresses",
+    "image": "/images/placeholder-1.svg",
+    "featured": true,
+    "createdAt": "2026-03-01T10:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "Classic Bermuda Shorts Set",
+    "description": "A tailored shorts set in a soft coral cotton blend, inspired by the iconic Bermuda style. Includes matching belt.",
+    "category": "Sets",
+    "image": "/images/placeholder-2.svg",
+    "featured": true,
+    "createdAt": "2026-03-10T10:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "Hibiscus Print Blouse",
+    "description": "A delicate blouse featuring a hand-painted hibiscus print on soft cotton voile. Each piece is unique.",
+    "category": "Tops",
+    "image": "/images/placeholder-3.svg",
+    "featured": true,
+    "createdAt": "2026-03-18T10:00:00.000Z"
+  }
+]

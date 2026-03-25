@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Sea Breeze Sewing BDA</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* ── Admin-specific styles ─────────────────────────── */
+    body { background: #F0EDE8; }
+
+    .admin-login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 52px 44px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 16px 60px rgba(44,62,53,0.15);
+      text-align: center;
+    }
+    .login-logo {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--turquoise-light), var(--turquoise-dark));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.8rem;
+    }
+    .login-card h2 { margin-bottom: 6px; }
+    .login-card p  { color: var(--text-mid); margin-bottom: 32px; font-size: 0.9rem; }
+    .login-error {
+      background: #fef2f2;
+      color: #dc2626;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* ── Admin Shell ──────────────────────────────────── */
+    .admin-shell { display: none; min-height: 100vh; }
+
+    .admin-topbar {
+      background: var(--text);
+      padding: 14px 0;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .admin-topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    .admin-topbar .nav-logo-text { color: white; font-size: 1rem; }
+    .admin-topbar .nav-logo-text span { color: var(--turquoise-light); }
+    .admin-topbar .nav-logo-sub  { color: rgba(255,255,255,0.4); }
+    .admin-badge {
+      background: var(--turquoise);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 3px 12px;
+      border-radius: 50px;
+      text-transform: uppercase;
+    }
+    .admin-topbar-actions { display: flex; gap: 12px; align-items: center; }
+    .btn-sm {
+      padding: 7px 18px;
+      font-size: 0.82rem;
+      border-radius: 50px;
+    }
+    .btn-danger {
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      padding: 7px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-danger:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    .admin-body {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 36px 28px;
+    }
+
+    /* ── Tabs ─────────────────────────────────────────── */
+    .admin-tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 36px;
+    }
+    .admin-tab {
+      padding: 12px 24px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: var(--transition);
+    }
+    .admin-tab:hover { color: var(--text); }
+    .admin-tab.active { color: var(--turquoise); border-bottom-color: var(--turquoise); }
+    .tab-badge {
+      display: inline-block;
+      background: var(--coral);
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 50px;
+      margin-left: 6px;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Upload Card ──────────────────────────────────── */
+    .upload-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: 0 4px 20px var(--shadow);
+      margin-bottom: 36px;
+    }
+    .upload-card h3 { font-size: 1.4rem; margin-bottom: 24px; }
+
+    .image-drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      background: var(--sand);
+    }
+    .image-drop-zone:hover,
+    .image-drop-zone.drag-over {
+      border-color: var(--turquoise);
+      background: rgba(74,171,181,0.06);
+    }
+    .image-drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .drop-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .drop-text { font-size: 1rem; color: var(--text); font-weight: 700; margin-bottom: 6px; }
+    .drop-hint { font-size: 0.82rem; color: var(--text-mid); }
+    .image-preview {
+      display: none;
+      position: relative;
+    }
+    .image-preview img {
+      max-height: 220px;
+      border-radius: var(--radius);
+      margin: 0 auto;
+      object-fit: cover;
+    }
+    .preview-remove {
+      position: absolute;
+      top: -8px; right: -8px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .upload-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+    .upload-fields .form-group { margin-bottom: 0; }
+    .upload-fields .form-group:last-child { grid-column: 1/-1; }
+
+    .featured-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--sand);
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+    .toggle-switch {
+      width: 44px; height: 24px;
+      background: var(--border);
+      border-radius: 50px;
+      position: relative;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      background: white;
+      border-radius: 50%;
+      transition: var(--transition);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    input[type="checkbox"]:checked + .toggle-switch {
+      background: var(--turquoise);
+    }
+    input[type="checkbox"]:checked + .toggle-switch::after {
+      transform: translateX(20px);
+    }
+    input[type="checkbox"] { display: none; }
+    .toggle-label { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+    .toggle-hint  { font-size: 0.8rem; color: var(--text-mid); }
+
+    /* ── Admin Designs List ───────────────────────────── */
+    .admin-designs-list { display: flex; flex-direction: column; gap: 16px; }
+    .admin-design-item {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: var(--transition);
+    }
+    .admin-design-item:hover { box-shadow: 0 4px 20px var(--shadow-md); }
+    .admin-design-thumb {
+      width: 72px; height: 72px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      background: var(--sand-dark);
+      flex-shrink: 0;
+    }
+    .admin-design-info { flex: 1; min-width: 0; }
+    .admin-design-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .admin-design-meta {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      display: flex;
+      gap: 12px;
+    }
+    .admin-design-meta .tag {
+      background: var(--sand);
+      padding: 2px 10px;
+      border-radius: 50px;
+    }
+    .admin-design-meta .tag.featured {
+      background: rgba(74,171,181,0.12);
+      color: var(--turquoise-dark);
+    }
+    .admin-design-actions { display: flex; gap: 8px; }
+    .btn-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .btn-icon-delete { background: #fef2f2; color: #dc2626; }
+    .btn-icon-delete:hover { background: #dc2626; color: white; }
+    .btn-icon-toggle { background: var(--sand); color: var(--text-mid); }
+    .btn-icon-toggle:hover { background: var(--sand-dark); }
+
+    /* ── Contacts List ────────────────────────────────── */
+    .contact-inquiry {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 2px 12px var(--shadow);
+      margin-bottom: 16px;
+      border-left: 4px solid var(--border);
+      transition: var(--transition);
+    }
+    .contact-inquiry.unread { border-left-color: var(--turquoise); }
+    .inquiry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .inquiry-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; }
+    .inquiry-meta { font-size: 0.82rem; color: var(--text-mid); margin-top: 3px; }
+    .inquiry-badges { display: flex; gap: 8px; align-items: center; }
+    .badge-unread {
+      background: var(--turquoise);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+    }
+    .badge-item {
+      background: var(--sand);
+      color: var(--text);
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+    .inquiry-message {
+      font-size: 0.92rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      padding: 12px 16px;
+      background: var(--sand);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+    }
+    .inquiry-actions { display: flex; gap: 10px; }
+    .btn-sm-outline {
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-mid);
+    }
+    .btn-sm-outline:hover { border-color: var(--turquoise); color: var(--turquoise); }
+    .btn-sm-delete {
+      border-color: #fecaca;
+      color: #dc2626;
+    }
+    .btn-sm-delete:hover { background: #dc2626; color: white; border-color: #dc2626; }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-mid);
+    }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 1.3rem; margin-bottom: 8px; }
+
+    /* ── Upload progress ──────────────────────────────── */
+    .upload-progress {
+      display: none;
+      background: var(--sand);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 16px;
+      height: 6px;
+    }
+    .upload-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--turquoise-light), var(--turquoise));
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    @media (max-width: 768px) {
+      .upload-fields { grid-template-columns: 1fr; }
+      .upload-fields .form-group:last-child { grid-column: auto; }
+      .admin-design-item { flex-wrap: wrap; }
+      .login-card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Login Screen ────────────────────────────────────── -->
+  <div class="admin-login" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">🧵</div>
+      <h2>Admin Panel</h2>
+      <p>Sea Breeze Sewing BDA — enter your password to continue</p>
+      <div class="login-error" id="loginError"></div>
+      <form id="loginForm">
+        <div class="form-group" style="text-align:left;">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter admin password" required autofocus>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit" id="loginBtn">Sign In</button>
+      </form>
+      <p style="margin-top:20px;font-size:0.8rem;color:var(--text-light)">
+        <a href="/" style="color:var(--turquoise)">← Back to website</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Admin Shell ─────────────────────────────────────── -->
+  <div class="admin-shell" id="adminShell">
+
+    <div class="admin-topbar">
+      <div class="admin-topbar-inner">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <a href="/" class="nav-logo" style="text-decoration:none;">
+            <div class="nav-logo-icon" style="width:32px;height:32px;">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;">
+                <path d="M12 2C9 2 7 4 7 7c0 1.5.5 2.8 1.4 3.8L3 17h3l1-2h10l1 2h3l-5.4-6.2C15.5 9.8 16 8.5 16 7c0-3-2-5-4-5zm0 2c1.1 0 2 1.3 2 3s-.9 3-2 3-2-1.3-2-3 .9-3 2-3z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="nav-logo-text">Sea <span>Breeze</span> Sewing</div>
+              <div class="nav-logo-sub">Bermuda · Handcrafted</div>
+            </div>
+          </a>
+          <span class="admin-badge">Admin</span>
+        </div>
+        <div class="admin-topbar-actions">
+          <a href="/" target="_blank" class="btn btn-sm btn-outline" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.25);">View Site</a>
+          <button class="btn-danger" onclick="adminLogout()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-body">
+
+      <!-- Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchTab('designs')">
+          🧵 Designs <span id="designsCount" class="tab-badge" style="display:none;"></span>
+        </button>
+        <button class="admin-tab" onclick="switchTab('inquiries')">
+          ✉️ Inquiries <span id="inquiriesCount" class="tab-badge" style="display:none;"></span>
+        </button>
+      </div>
+
+      <!-- ── Designs Tab ──────────────────────────────── -->
+      <div class="tab-panel active" id="tab-designs">
+
+        <!-- Upload Form -->
+        <div class="upload-card">
+          <h3>Add New Design</h3>
+          <form id="uploadForm" enctype="multipart/form-data">
+
+            <!-- Image drop zone -->
+            <div class="image-drop-zone" id="dropZone">
+              <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(this)">
+              <div id="dropContent">
+                <div class="drop-icon">🖼️</div>
+                <div class="drop-text">Click or drag & drop your photo here</div>
+                <div class="drop-hint">JPG, PNG, WebP — up to 10 MB</div>
+              </div>
+              <div class="image-preview" id="imagePreview">
+                <img id="previewImg" src="" alt="Preview">
+                <button type="button" class="preview-remove" onclick="clearImage()">✕</button>
+              </div>
+            </div>
+            <div class="upload-progress" id="uploadProgress">
+              <div class="upload-progress-bar" id="uploadProgressBar"></div>
+            </div>
+
+            <!-- Fields -->
+            <div class="upload-fields">
+              <div class="form-group">
+                <label>Design Title *</label>
+                <input type="text" name="title" id="uploadTitle" placeholder="e.g. Turquoise Linen Dress" required>
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+                <select name="category" id="uploadCategory">
+                  <option value="Dresses">Dresses</option>
+                  <option value="Tops">Tops</option>
+                  <option value="Sets">Sets</option>
+                  <option value="Skirts">Skirts</option>
+                  <option value="Accessories">Accessories</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label>Description</label>
+                <textarea name="description" id="uploadDescription" rows="3" placeholder="Describe the design, materials, and any special details..."></textarea>
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label class="featured-toggle" for="uploadFeatured">
+                  <input type="checkbox" id="uploadFeatured" name="featured">
+                  <div class="toggle-switch"></div>
+                  <div>
+                    <div class="toggle-label">Feature on Homepage</div>
+                    <div class="toggle-hint">Show this design in the "Newest Designs" section on the home page</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="uploadBtn" style="margin-top:8px;">
+              Upload Design
+            </button>
+          </form>
+        </div>
+
+        <!-- Designs List -->
+        <h3 style="margin-bottom:20px;font-size:1.3rem;">All Designs</h3>
+        <div class="admin-designs-list" id="adminDesignsList">
+          <div style="text-align:center;padding:40px;color:var(--text-mid);">
+            <div class="spinner" style="margin:0 auto 16px;"></div>
+            Loading designs...
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Inquiries Tab ────────────────────────────── -->
+      <div class="tab-panel" id="tab-inquiries">
+        <div id="adminContactsList">
+          <div style="text-align:center;padding:40px;color:var(--text-mid);">
+            <div class="spinner" style="margin:0 auto 16px;"></div>
+            Loading inquiries...
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

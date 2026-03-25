@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Sea Breeze Sewing BDA</title>
+  <meta name="description" content="Get in touch to enquire about a design or ask about a custom order.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C9 2 7 4 7 7c0 1.5.5 2.8 1.4 3.8L3 17h3l1-2h10l1 2h3l-5.4-6.2C15.5 9.8 16 8.5 16 7c0-3-2-5-4-5zm0 2c1.1 0 2 1.3 2 3s-.9 3-2 3-2-1.3-2-3 .9-3 2-3z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="nav-logo-text">Sea <span>Breeze</span> Sewing</div>
+          <div class="nav-logo-sub">Bermuda · Handcrafted</div>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/designs.html">Designs</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html" class="active">Contact</a></li>
+        <li><a href="/designs.html" class="btn btn-primary nav-cta">Shop Designs</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Page Header ────────────────────────────────────── -->
+  <div class="contact-header">
+    <div class="container">
+      <span class="section-label" style="color:rgba(255,255,255,0.7)">Say Hello</span>
+      <h1>Get in Touch</h1>
+      <p>Interested in a design, or want to ask about a custom piece? I'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <!-- ── Contact Layout ─────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Info Column -->
+        <div class="contact-info">
+          <h2>Let's Talk</h2>
+          <p>
+            No complicated checkout process — just a simple message. Once I receive your inquiry,
+            I'll get back to you personally to discuss the details and arrange the transaction.
+          </p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <div class="contact-detail-icon">✉️</div>
+              <div>
+                <h4>Email</h4>
+                <p><a href="mailto:brosiusjacques@gmail.com">brosiusjacques@gmail.com</a></p>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">📍</div>
+              <div>
+                <h4>Location</h4>
+                <p>Bermuda</p>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">⏱️</div>
+              <div>
+                <h4>Response Time</h4>
+                <p>Usually within 1–2 business days</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 40px; padding: 24px; background: var(--sand); border-radius: var(--radius); border-left: 3px solid var(--turquoise);">
+            <h4 style="margin-bottom: 8px; font-size:1rem;">How it works</h4>
+            <p style="font-size:0.9rem; color:var(--text-mid); line-height:1.7;">
+              Send me a message describing the item you're interested in. I'll reply to confirm
+              availability and discuss sizing, personalisation options, and payment — all handled
+              personally, at our own pace.
+            </p>
+          </div>
+        </div>
+
+        <!-- Form Column -->
+        <div class="contact-form-card">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Name *</label>
+                <input type="text" name="name" id="name" placeholder="Jane Smith" required>
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" name="email" id="email" placeholder="jane@example.com" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Phone Number (optional)</label>
+              <input type="tel" name="phone" id="phone" placeholder="+1 441 000 0000">
+            </div>
+            <div class="form-group">
+              <label>Which Design Are You Interested In?</label>
+              <select name="item" id="item">
+                <option value="">— General Inquiry —</option>
+                <option value="Custom Order">Custom Order</option>
+                <!-- Designs loaded dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Your Message *</label>
+              <textarea name="message" id="message"
+                placeholder="Tell me what you're looking for — the design name, your size, any special requests or questions..."
+                required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit" id="submitBtn">
+              Send Message
+            </button>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            <div class="form-success-icon">🌊</div>
+            <h3>Message Received!</h3>
+            <p>Thank you for reaching out. I'll be in touch within 1–2 business days to arrange everything.</p>
+            <a href="/designs.html" class="btn btn-outline" style="margin-top: 20px;">Continue Browsing</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C9 2 7 4 7 7c0 1.5.5 2.8 1.4 3.8L3 17h3l1-2h10l1 2h3l-5.4-6.2C15.5 9.8 16 8.5 16 7c0-3-2-5-4-5zm0 2c1.1 0 2 1.3 2 3s-.9 3-2 3-2-1.3-2-3 .9-3 2-3z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="nav-logo-text">Sea <span>Breeze</span> Sewing</div>
+              <div class="nav-logo-sub">Bermuda · Handcrafted</div>
+            </div>
+          </div>
+          <p>Handcrafted clothing lovingly made in our Bermudian workshop.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/designs.html">Designs</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:brosiusjacques@gmail.com">brosiusjacques@gmail.com</a></li>
+            <li>Bermuda</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Sea Breeze Sewing BDA. All rights reserved.</span>
+        <a href="/admin.html" style="opacity:0.4;font-size:0.78rem;">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="/js/main.js"></script>
+  <script>
+    // Pre-populate item select from designs API
+    async function loadDesignOptions() {
+      try {
+        const res = await fetch('/api/designs');
+        const designs = await res.json();
+        const select = document.getElementById('item');
+        designs.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.title;
+          opt.textContent = d.title;
+          select.appendChild(opt);
+        });
+      } catch {}
+    }
+    loadDesignOptions();
+
+    // Pre-fill from URL param
+    const params = new URLSearchParams(window.location.search);
+    const itemParam = params.get('item');
+    if (itemParam) {
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const sel = document.getElementById('item');
+          for (let o of sel.options) {
+            if (o.value === itemParam) { o.selected = true; break; }
+          }
+        }, 500);
+      });
+    }
+
+    // Contact form submit
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      const data = {
+        name:    document.getElementById('name').value,
+        email:   document.getElementById('email').value,
+        phone:   document.getElementById('phone').value,
+        item:    document.getElementById('item').value,
+        message: document.getElementById('message').value
+      };
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.success) {
+          document.getElementById('contactForm').style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          showToast(json.error || 'Something went wrong. Please try again.', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
+        }
+      } catch {
+        showToast('Unable to send message. Please try again.', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    });
+  </script>
+</body>
+</html>

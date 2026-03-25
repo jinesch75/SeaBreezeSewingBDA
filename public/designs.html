@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designs — Sea Breeze Sewing BDA</title>
+  <meta name="description" content="Browse our collection of handcrafted Bermudian designs. Dresses, tops, sets and more.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C9 2 7 4 7 7c0 1.5.5 2.8 1.4 3.8L3 17h3l1-2h10l1 2h3l-5.4-6.2C15.5 9.8 16 8.5 16 7c0-3-2-5-4-5zm0 2c1.1 0 2 1.3 2 3s-.9 3-2 3-2-1.3-2-3 .9-3 2-3z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="nav-logo-text">Sea <span>Breeze</span> Sewing</div>
+          <div class="nav-logo-sub">Bermuda · Handcrafted</div>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/designs.html" class="active">Designs</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/designs.html" class="btn btn-primary nav-cta">Shop Designs</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Page Header ────────────────────────────────────── -->
+  <div class="gallery-header">
+    <div class="container">
+      <span class="section-label" style="color:rgba(255,255,255,0.7)">All Creations</span>
+      <h1>Our Designs</h1>
+      <p>Every piece is unique, handcrafted in Bermuda with care and love.</p>
+    </div>
+  </div>
+
+  <!-- ── Filter Bar ─────────────────────────────────────── -->
+  <div class="container">
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <!-- Categories loaded dynamically -->
+    </div>
+  </div>
+
+  <!-- ── Designs Grid ───────────────────────────────────── -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="designs-grid" id="designsGrid">
+        <!-- Skeleton -->
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Strip ──────────────────────────────────────── -->
+  <div class="highlight-strip">
+    <div class="container">
+      <h2>See Something You Love?</h2>
+      <p>Just let me know — I'll arrange everything personally, no online checkout needed.</p>
+      <a href="/contact.html" class="btn btn-white">Send Me a Message</a>
+    </div>
+  </div>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C9 2 7 4 7 7c0 1.5.5 2.8 1.4 3.8L3 17h3l1-2h10l1 2h3l-5.4-6.2C15.5 9.8 16 8.5 16 7c0-3-2-5-4-5zm0 2c1.1 0 2 1.3 2 3s-.9 3-2 3-2-1.3-2-3 .9-3 2-3z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="nav-logo-text">Sea <span>Breeze</span> Sewing</div>
+              <div class="nav-logo-sub">Bermuda · Handcrafted</div>
+            </div>
+          </div>
+          <p>Handcrafted clothing lovingly made in our Bermudian workshop.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/designs.html">Designs</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="/contact.html">Send a Message</a></li>
+            <li><a href="mailto:brosiusjacques@gmail.com">brosiusjacques@gmail.com</a></li>
+            <li>Bermuda</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Sea Breeze Sewing BDA. All rights reserved.</span>
+        <a href="/admin.html" style="opacity:0.4;font-size:0.78rem;">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Interest Modal ─────────────────────────────────── -->
+  <div class="modal-overlay" id="interestModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3>I'm Interested</h3>
+      <p class="modal-subtitle">Fill in your details and I'll get back to you to arrange the purchase.</p>
+      <div class="modal-item-name" id="modalItemName"></div>
+      <form id="modalContactForm">
+        <input type="hidden" id="modalItemInput" name="item">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" name="name" placeholder="Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" name="email" placeholder="jane@example.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone (optional)</label>
+          <input type="tel" name="phone" placeholder="+1 441 000 0000">
+        </div>
+        <div class="form-group">
+          <label>Your Message *</label>
+          <textarea name="message" placeholder="Any questions, size preferences, or special requests..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">Send My Interest</button>
+      </form>
+      <div class="form-success" id="modalSuccess">
+        <div class="form-success-icon">🌊</div>
+        <h3>Message Sent!</h3>
+        <p>Thank you! I'll be in touch soon to arrange everything.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/js/main.js"></script>
+  <script>
+    let allDesigns = [];
+    let activeFilter = 'all';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const grid = document.getElementById('designsGrid');
+      try {
+        const res = await fetch('/api/designs');
+        allDesigns = await res.json();
+        buildFilters(allDesigns);
+        renderDesigns(allDesigns);
+      } catch {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-mid);padding:40px">Unable to load designs.</p>';
+      }
+    });
+
+    function buildFilters(designs) {
+      const cats = [...new Set(designs.map(d => d.category))].filter(Boolean);
+      const bar = document.getElementById('filterBar');
+      cats.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.filter = cat;
+        btn.textContent = cat;
+        btn.onclick = () => setFilter(cat);
+        bar.appendChild(btn);
+      });
+    }
+
+    function setFilter(filter) {
+      activeFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.filter === filter);
+      });
+      const filtered = filter === 'all' ? allDesigns : allDesigns.filter(d => d.category === filter);
+      renderDesigns(filtered);
+    }
+
+    // Set up filter buttons
+    document.querySelector('[data-filter="all"]').onclick = () => setFilter('all');
+
+    function renderDesigns(designs) {
+      const grid = document.getElementById('designsGrid');
+      if (designs.length === 0) {
+        grid.innerHTML = `<div class="no-results"><h3>No designs in this category yet</h3><p>Check back soon for new creations!</p></div>`;
+        return;
+      }
+      grid.innerHTML = designs.map(d => renderCard(d)).join('');
+    }
+  </script>
+</body>
+</html>
